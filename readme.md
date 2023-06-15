@@ -55,15 +55,15 @@ Download the repo and place in a folder that will be used as the working directo
 
     ```
     CREATE TABLE IF NOT EXISTS playerloc (
-        id			TINYINT		UNSIGNED	NOT NULL,
+        id			TINYINT  UNSIGNED NOT NULL,
         x			SMALLINT				NOT NULL,
         y			SMALLINT				NOT NULL,
         z			SMALLINT				NOT NULL,
         angle		SMALLINT				NOT NULL,
-        speed		SMALLINT	UNSIGNED	NOT NULL,
-        ticknum		INT			UNSIGNED	NOT NULL,
-        writenum	INT			UNSIGNED	NOT NULL,
-        episode		INT			UNSIGNED	NOT NULL,
+        speed		SMALLINT   UNSIGNED	NOT NULL,
+        ticknum	INT      UNSIGNED	NOT NULL,
+        writenum	INT		UNSIGNED	NOT NULL,
+        episode	INT		UNSIGNED	NOT NULL,
         INDEX (id),
         INDEX (writenum)	
     ) ENGINE=MyISAM
