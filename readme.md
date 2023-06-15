@@ -2,8 +2,9 @@ Required software:
 
 - MySQL Community edition
 - MetaMod and SourceMod
-- CounterStrike: Source
+- Counter-Strike: Source
 - SteamCMD
+- SteamCMD-GUI
 - Python3
 
 # Full install instructions
@@ -24,6 +25,17 @@ Download the repo and place in a folder that will be used as the working directo
     
     `app_update 232330 validate` to install CS:S dedicated server
 7.  Copy and paste aa_surf_time_test.bsp from \etc\ to $WORKDIR\SteamCMD\CSS\cstrike\maps
+8.  Make a folder at $WORKDIR called SteamCMD-GUI
+9.  Install [SteamCMD-GUI](https://github.com/DioJoestar/SteamCMD-GUI) to the folder just created
+10. Run SteamCMD GUI.exe and set the following parameters in the Run Server tab:
+    - Srcds path set to `$WORKDIR\SteamCMD\CSS`
+    - Game Configuration set to `Counter-Strike: Source`
+    - Map set to aa_surf_time_test
+
+  @TODO make a config for server that is good for surf (airaccell 100 etc)
+
+11.  Click run to run server
+12.  Open CS:S and test by browsing to LAN tab and connecting to server
 
 
 ## SourceMod and MetaMod configuration
