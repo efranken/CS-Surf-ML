@@ -4,6 +4,7 @@ Required software:
 - MetaMod and SourceMod
 - CounterStrike: Source
 - SteamCMD
+- Steam
 - Python3
 
 # Full install instructions
