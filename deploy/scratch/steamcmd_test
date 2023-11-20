@@ -1,0 +1,18 @@
+$mlDirectory = "C:\ml"
+$steamcmdDirectory = Join-Path -Path $mlDirectory -ChildPath "steamcmd"
+$steamcmdInstallPath = Join-Path -Path $mlDirectory -ChildPath "steamcmd_downloads"
+$steamcmdZipPath = Join-Path -Path $steamcmdDirectory -ChildPath "steamcmd.zip"
+$steamcmdExePath = Join-Path -Path $steamcmdDirectory -ChildPath "steamcmd.exe"
+
+if (-not (Test-Path -Path $steamcmdDirectory -PathType Container)) {
+    New-Item -Path $steamcmdDirectory -ItemType Directory
+}
+
+if (-not (Test-Path -Path $steamcmdZipPath -PathType Leaf)) {
+    $url = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
+    Invoke-WebRequest -Uri $url -OutFile $steamcmdZipPath
+}
+
+Expand-Archive -Path $steamcmdZipPath -DestinationPath $steamcmdDirectory -Force
+
+Start-Process -FilePath $steamcmdExePath -ArgumentList "+force_install_dir $steamcmdInstallPath +login anonymous +app_update 232330 +quit" -NoNewWindow -Wait
