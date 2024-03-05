@@ -1,14 +1,17 @@
-$mlDirectory = "C:\ml"
+$mlDirectory = "C:\ML"
 
 $steamcmdDirectory = Join-Path -Path $mlDirectory -ChildPath "steamcmd"
 $steamcmdInstallPath = Join-Path -Path $mlDirectory -ChildPath "steamcmd_downloads"
 $steamcmdZipPath = Join-Path -Path $steamcmdDirectory -ChildPath "steamcmd.zip"
 $steamcmdExePath = Join-Path -Path $steamcmdDirectory -ChildPath "steamcmd.exe"
+$steamcmdURL = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
 
 $steamcmdGuiDirectory = Join-Path -Path $mlDirectory -ChildPath "steamcmd-gui"
 $steamcmdGuiZipPath = Join-Path -Path $steamcmdGuiDirectory -ChildPath "steamcmd-gui.zip"
 
-$mapSourcePath = "$mlDirectory\etc\aa_surf_time_test.bsp"
+$gitUrl = "https://github.com/efranken/CS-Surf-ML"
+
+$mapSourcePath = "$mlDirectory\CS-Surf-ML\etc\aa_surf_time_test.bsp"
 $mapDestinationPath = "$steamcmdInstallPath\cstrike\maps\aa_surf_time_test.bsp"
 
 # Creates both $mlDirectory and $steamcmdDirectory
@@ -22,21 +25,30 @@ if (-not (Test-Path -Path $steamcmdGuiDirectory -PathType Container)) {
 }
 
 # get git, python, mysql, steam
-winget install --id Git.Git -e --location $mlDirectory
-winget install -e --id Python.Python.3.9 --location $mlDirectory
-winget install -e --id Oracle.MySQL --location $mlDirectory
-winget install -e --id Valve.Steam --location $mlDirectory
+$packages = @(
+    "Git.Git",
+    "Python.Python.3.9",
+    "PostgreSQL.PostgreSQL",
+    "Valve.Steam"
+)
+
+foreach ($package in $packages) {
+    Write-Host "Installing $package..."
+    winget install -e --id $package --location $mlDirectory --silent --accept-source-agreements --accept-package-agreements
+}
 
 # if the steamcmdZip doesn't exist yet, get it and unzip it
 if (-not (Test-Path -Path $steamcmdZipPath -PathType Leaf)) {
-    $steamcmdurl = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
-    Invoke-WebRequest -Uri $url -OutFile $steamcmdZipPath
+    Invoke-WebRequest -Uri $steamcmdURL -OutFile $steamcmdZipPath
 }
 
 Expand-Archive -Path $steamcmdZipPath -DestinationPath $steamcmdDirectory -Force
 
 # start steamcmd, login anonymous, update 232330 (css server), wait for it to finish
 Start-Process -FilePath $steamcmdExePath -ArgumentList "+force_install_dir $steamcmdInstallPath +login anonymous +app_update 232330 +quit" -NoNewWindow -Wait
+
+# clone github repo
+git clone $gitUrl $mlDirectory
 
 # move testing $map into the newly created steamcmd path
 if (Test-Path $mapSourcePath -PathType Leaf) {
@@ -57,3 +69,7 @@ if (-not (Test-Path -Path $steamcmdGuiZipPath -PathType Leaf)) {
 }
 
 Expand-Archive -Path $steamcmdGuiZipPath -DestinationPath $steamcmdGuiDirectory -Force
+
+start-sleep 300
+
+#next step is to download repo and map file
