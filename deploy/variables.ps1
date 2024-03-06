@@ -1,3 +1,10 @@
+$packages = @(
+    "Git.Git",
+    "Python.Python.3.9",
+    "PostgreSQL.PostgreSQL",
+    "Valve.Steam"
+)
+
 $mlDirectory = "C:\ML"
 
 $steamcmdDirectory = Join-Path -Path $mlDirectory -ChildPath "steamcmd"
@@ -15,4 +22,4 @@ $projectName = "CS-Surf-ML"
 $mapSourcePath = "$mlDirectory\CS-Surf-ML\etc\aa_surf_time_test.bsp"
 $mapDestinationPath = "$steamcmdInstallPath\cstrike\maps\aa_surf_time_test.bsp"
 
-$gitPath = Join-Path $mlDirectory $projectName 
+$gitPath = Join-Path $mlDirectory $projectName

@@ -10,19 +10,6 @@ if (-not (Test-Path -Path $steamcmdGuiDirectory -PathType Container)) {
     New-Item -Path $steamcmdGuiDirectory -ItemType Directory
 }
 
-# get git, python, mysql, steam
-$packages = @(
-    "Git.Git",
-    "Python.Python.3.9",
-    "PostgreSQL.PostgreSQL",
-    "Valve.Steam"
-)
-
-foreach ($package in $packages) {
-    Write-Host "Installing $package..."
-    winget install -e --id $package --location $mlDirectory --silent --accept-source-agreements --accept-package-agreements
-}
-
 # if the steamcmdZip doesn't exist yet, get it and unzip it
 if (-not (Test-Path -Path $steamcmdZipPath -PathType Leaf)) {
     Invoke-WebRequest -Uri $steamcmdURL -OutFile $steamcmdZipPath
