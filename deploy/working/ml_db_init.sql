@@ -1,7 +1,6 @@
+CREATE DATABASE ml;
 
-CREATE DATABASE ml2;
-
-\c ml2
+\c ml
 
 CREATE TABLE IF NOT EXISTS playerloc (
     id         SMALLINT     NOT NULL,
@@ -18,3 +17,7 @@ CREATE TABLE IF NOT EXISTS playerloc (
 -- Add indexes to the table
 CREATE INDEX idx_id ON playerloc (id);
 CREATE INDEX idx_writenum ON playerloc (writenum);
+
+-- Show tables and rows of playerloc for sanity check
+\dt
+\d+ playerloc
