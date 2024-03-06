@@ -1,5 +1,0 @@
-$mlDirectory = "C:\ml"
-$steamcmdDirectory = Join-Path -Path $mlDirectory -ChildPath "steamcmd"
-$steamcmdInstallPath = Join-Path -Path $mlDirectory -ChildPath "steamcmd_downloads"
-$steamcmdZipPath = Join-Path -Path $steamcmdDirectory -ChildPath "steamcmd.zip"
-$steamcmdExePath = Join-Path -Path $steamcmdDirectory -ChildPath "steamcmd.exe"
