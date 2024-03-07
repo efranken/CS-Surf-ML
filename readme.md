@@ -87,11 +87,13 @@ Download the repo and place in a folder that will be used as the working directo
 
 ## rolling todo
 
-1.  move steamcmd_config to a couple different files
-2.  make a main runner script
-3.  configure database script
-4.  start steam server properly
-5.  connect to it from vm
-6.  get virtual controller working via scripted install
-7.  get the correct versions of openai stuff, or convert if needed
-8.  get it running like i had in the youtube video
+- 1.  move steamcmd_config to a couple different files
+- 2.  make a main runner script
+- 3.  configure database    script
+download sourcemod/metamod
+
+1.  start steam server properly
+2.  connect to it from vm
+3.  get virtual controller working via scripted install
+4.  get the correct versions of openai stuff, or convert if needed
+5.  get it running like i had in the youtube video

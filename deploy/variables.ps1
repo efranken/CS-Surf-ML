@@ -1,5 +1,4 @@
 $packages = @(
-    "Git.Git",
     "Python.Python.3.9",
     "PostgreSQL.PostgreSQL",
     "Valve.Steam"
