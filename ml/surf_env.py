@@ -1,6 +1,6 @@
 import gymnasium as gym
-from gymnasium import Env
-from gymnasium.spaces import Discrete, Box
+# from gymnasium import Env
+# from gymnasium.spaces import Discrete, Box
 import time
 import math
 import vgamepad as vg
