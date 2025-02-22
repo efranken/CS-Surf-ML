@@ -1,6 +1,6 @@
-import gym
-from gym import Env
-from gym.spaces import Discrete, Box
+import gymnasium as gym
+from gymnasium import Env
+from gymnasium.spaces import Discrete, Box
 import time
 import math
 import vgamepad as vg
@@ -15,7 +15,7 @@ SLEEP_TIME = 1/HZ
 UDP_PORT = 27016
 
 CURRENT_POS = None
-CURRENT_DATA_LOCK = threading.lock()
+CURRENT_DATA_LOCK = threading.Lock()
 
 class SurfEnv(gym.Env):
     def __init__(self):
