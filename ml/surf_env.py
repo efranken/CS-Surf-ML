@@ -19,6 +19,7 @@ CURRENT_DATA_LOCK = threading.Lock()
 
 class SurfEnv(gym.Env):
     def __init__(self):
+        print("init env")
         discrete_actions = gym.spaces.MultiDiscrete([2,2,2])
         continuous_actions = gym.spaces.Box(low=-1, high=1, shape=(1,))
 
@@ -148,47 +149,6 @@ class SurfEnv(gym.Env):
                 time.sleep(.5)
                 move(0,0,0)
 
-def dbRead():
-    query_data = []
-    current = []
-    bounds_check = []
-    bounds_bool = True
-
-    xyz_list = []
-    distance_list = []
-    end_point = [-277,2924,655]
-
-    backtest = 5
-
-    cursor = DB.cursor()
-
-    # Retrieve the data from the database
-    query = ("SELECT ticknum, angle, x, y, z, speed, episode, bounds FROM playerloc ORDER BY writenum DESC LIMIT " + str(backtest))
-    cursor.execute(query)
-
-    row = cursor.fetchone()
-    while row is not None:
-        query_data.append(row)
-        row = cursor.fetchone()
-        current = query_data[0]
-
-    for num in range(backtest):
-        # bounds block
-        bounds_check.append(query_data[num][7])
-        if 0 in bounds_check:
-            bounds_bool = False
-        else:
-            bounds_bool = True
-    
-        #rewards block
-        xyz_list.append([query_data[num][2],query_data[num][3],query_data[num][4]])
-        distance_list.append([math.sqrt((end_point[0] - xyz_list[num][0])**2 + (end_point[1] - xyz_list[num][1])**2 + (end_point[2] - xyz_list[num][2])**2)])
-        lowest_distance_list = min(distance_list)
-        lowest_distance = float(lowest_distance_list[0])
-
-    return current, bounds_bool, lowest_distance
-
-
 def udp_read():
     global CURRENT_POS
 # Format(message, sizeof(message), "Values: %d, %d, %d, %d, %0.0f, %-.2f, %d, %d, %d, %d", i, x, y, z, posAng[1], PlayerfSpeed, TickNum, WriteNum, Bounds, 0);
@@ -250,3 +210,44 @@ def look(yaw_float):
     PAD.right_joystick_float(x_value_float=yaw_float, y_value_float=0)
 
     PAD.update()
+
+
+# def dbRead():
+#     query_data = []
+#     current = []
+#     bounds_check = []
+#     bounds_bool = True
+
+#     xyz_list = []
+#     distance_list = []
+#     end_point = [-277,2924,655]
+
+#     backtest = 5
+
+#     cursor = DB.cursor()
+
+#     # Retrieve the data from the database
+#     query = ("SELECT ticknum, angle, x, y, z, speed, episode, bounds FROM playerloc ORDER BY writenum DESC LIMIT " + str(backtest))
+#     cursor.execute(query)
+
+#     row = cursor.fetchone()
+#     while row is not None:
+#         query_data.append(row)
+#         row = cursor.fetchone()
+#         current = query_data[0]
+
+#     for num in range(backtest):
+#         # bounds block
+#         bounds_check.append(query_data[num][7])
+#         if 0 in bounds_check:
+#             bounds_bool = False
+#         else:
+#             bounds_bool = True
+    
+#         #rewards block
+#         xyz_list.append([query_data[num][2],query_data[num][3],query_data[num][4]])
+#         distance_list.append([math.sqrt((end_point[0] - xyz_list[num][0])**2 + (end_point[1] - xyz_list[num][1])**2 + (end_point[2] - xyz_list[num][2])**2)])
+#         lowest_distance_list = min(distance_list)
+#         lowest_distance = float(lowest_distance_list[0])
+
+#     return current, bounds_bool, lowest_distance

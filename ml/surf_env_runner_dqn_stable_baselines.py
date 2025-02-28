@@ -27,6 +27,7 @@ EXPLORATION_FINAL_EPS = 0.02
 
 def main():
     # Create the DQN agent
+    print("creating model")
     model = DQN(
         "MlpPolicy",
         env,
@@ -44,6 +45,7 @@ def main():
     )
 
     # Set up the evaluation callback
+    print("setting up eval callback")
     eval_env = make_vec_env(lambda: surf_env.SurfEnv(), n_envs=1)
     eval_callback = EvalCallback(
         eval_env,
@@ -55,15 +57,18 @@ def main():
     )
 
     # Train the agent
+    print("training the agent")
     for episode in range(NUMBER_OF_EPISODES):
         print(f"running episode {episode}")
         model.learn(total_timesteps=200, callback=eval_callback, reset_num_timesteps=False)
         print(f"Episode {episode + 1} completed")
 
     # Save the final model
+    print("saving model")
     model.save("dqn_surf_env_final")
 
     # Test the agent
+    print("testing the agent")
     obs = env.reset()
     for _ in range(1000):
         action, _states = model.predict(obs, deterministic=True)
@@ -73,6 +78,7 @@ def main():
             obs = env.reset()
 
     # Close the environment
+    print("closing env")
     env.close()
 
 if __name__ == "__main__":

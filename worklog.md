@@ -8,3 +8,6 @@
     build the env and reqs.txt
     make sure the init part of gym is where the udp_read shold start at
     remove all traces to db
+    update instructions for installing socket addin
+    update instructions for installing sourcemod udp player pos
+    add simple listener for python to verify mod works

@@ -1,3 +1,5 @@
+# deprecated, keeping as a historical lookback in case i need it
+
 import surf_env
 
 # disable annoying log about oneDNN custom ops
@@ -6,8 +8,8 @@ os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 
 # keras imports
 import numpy as np
-# from tensorflow.keras.models import Sequential
-# import tensorflow.keras.models
+from tensorflow.keras.models import Sequential
+import tensorflow.keras.models
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.optimizers import Adam
 
