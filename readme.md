@@ -1,3 +1,5 @@
+Project was abandoned, likely not functional without rework
+
 Required software:
 
 - MetaMod and SourceMod
